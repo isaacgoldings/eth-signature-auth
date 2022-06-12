@@ -98,16 +98,16 @@ App = {
       const task = await App.todoList.tasks(i)
       const taskId = task[0].toNumber()
       const taskContent = task[1]
-      const taskCompleted = task[2]
-      // const taskCreatedBy = task[3]
-      console.log("task");
-      console.log(task);
-      console.log("taskId");
-      console.log(taskId);
-      console.log("taskContent");
-      console.log(taskContent);
-      console.log("taskCompleted");
-      console.log(taskCompleted);
+      const taskCompleted = task[3]
+      const taskCreatedBy = task[2]
+       console.log("task");
+       console.log(task);
+      // console.log("taskId");
+      // console.log(taskId);
+      // console.log("taskContent");
+      // console.log(taskContent);
+      // console.log("taskCompleted");
+      // console.log(taskCompleted);
 
 
       // Create the html for the task
@@ -137,7 +137,7 @@ App = {
     const content = $('#myfile').val()
     // console.log(content);
     // const address = $('#newTaskAddress').val()
-    await App.todoList.createTask(content)
+    await App.todoList.createTask(content, email)
     window.location.reload()
   },
 
