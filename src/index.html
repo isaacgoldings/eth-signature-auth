@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Dapp University | Todo List</title>
+    <title>Document Signature Authentication</title>
 
     <!-- Bootstrap -->
     <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -59,13 +59,19 @@
 
           <div id="content">
             
-            <div style="color: aqua; background-color: red; padding: 20px;">
+            <div style="color: black; background-color: lightgrey; padding: 20px;">
               <form onSubmit="App.createTask(); return false;">
+                <div>
+                  <label for="myfile">Select a file:</label>
+                  <input type="file" id="myfile" name="myfile">
+                </div>
+                
+                <br>
+                <label for="newTask">Enter Recipient</label>
                 <input id="newTask" type="text" class="form-control" placeholder="Email" required>
-                <!-- <label for="myfile">Select a file:</label> -->
-                <input type="file" id="myfile" name="myfile">
+                <br>
                 <!-- <input id="newTaskAddress" type="text" class="form-control" placeholder="Email Address" required> -->
-                <input type="submit" hidden="">
+                <button type="submit" class="btn btn-primary">Upload to Blockchain</button>
               </form>
             </div>
 

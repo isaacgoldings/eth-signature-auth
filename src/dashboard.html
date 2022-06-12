@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <!-- Bootstrap -->
+  <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     .circle{
       border-radius: 25px;
@@ -17,6 +19,7 @@
       width: 5px;
       height: 100px;
       background-color: black;
+      margin-left: 15px;
     }
     .top{
       display: inline-flex;
@@ -26,21 +29,35 @@
     }
   </style>
 </head>
-<body>
+<body style="margin-top: 40px;">
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/" target="_blank">Digital Signature Authentication</a>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
+        <small><a class="nav-link" href="#"><span id="account"></span></a></small>
+      </li>
+    </ul>
+  </nav>
   <h1>Transaction History</h1>
 
   <div class="transactions">
     <div class="top">
-      <div class="circle"></div>
+      <div class="wrap">
+        <div class="circle"></div>
+        <div class="line"></div>
+      </div>
       <div class="nameInfo">
         <p>Sender: Jacob Schireson</p>
         <p>Receiver: Isaac Goldings</p>
         <p>Tx: 0x6cac4a3f3df050c15988a1d9508ac1a44ff00d901db93ac0f70f5c15558bd011</p>
       </div>
     </div>
-    <div class="line"></div>
+    <br>
     <div class="top">
-      <div class="circle"></div>
+      <div class="wrap">
+        <div class="circle"></div>
+        <div class="line"></div>
+      </div>
       <div class="nameInfo">
         <p>Sender: Isaac Goldings</p>
         <p>Receiver: Jacob Schireson</p>
