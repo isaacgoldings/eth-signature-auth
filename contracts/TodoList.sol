@@ -6,6 +6,7 @@ contract TodoList {
   struct Task {
     uint id;
     string content;
+    string createdBy;
     bool completed;
   }
 
@@ -14,6 +15,7 @@ contract TodoList {
   event TaskCreated(
     uint id,
     string content,
+    string createdBy,
     bool completed
   );
 
@@ -26,10 +28,10 @@ contract TodoList {
     createTask("Check out dappuniversity.com");
   }
 
-  function createTask(string memory _content) public {
+  function createTask(string memory _content, string memory _createdBy) public {
     taskCount ++;
-    tasks[taskCount] = Task(taskCount, _content, false);
-    emit TaskCreated(taskCount, _content, false);
+    tasks[taskCount] = Task(taskCount, _content, _createdBy, false);
+    emit TaskCreated(taskCount, _content, _createdBy, false);
   }
 
   function toggleCompleted(uint _id) public {

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .circle{
+      border-radius: 25px;
+      border: 2px solid black;
+      background-color: lightgreen;
+      width: 35px;
+      height: 35px;
+    }
+    .line{
+      width: 5px;
+      height: 100px;
+      background-color: black;
+    }
+    .top{
+      display: inline-flex;
+    }
+    .nameInfo{
+
+    }
+  </style>
+</head>
+<body>
+  <h1>Transaction History</h1>
+
+  <div class="transactions">
+    <div class="top">
+      <div class="circle"></div>
+      <div class="nameInfo">
+        <p>Sender: Jacob Schireson</p>
+        <p>Receiver: Isaac Goldings</p>
+        <p>Tx: 0x6cac4a3f3df050c15988a1d9508ac1a44ff00d901db93ac0f70f5c15558bd011</p>
+      </div>
+    </div>
+    <div class="line"></div>
+    <div class="top">
+      <div class="circle"></div>
+      <div class="nameInfo">
+        <p>Sender: Isaac Goldings</p>
+        <p>Receiver: Jacob Schireson</p>
+        <p>Tx: 0x03914a230c97d0a6489403113557dc567abf0b4fa56b01807ca1850e64674328</p>
+      </div>
+    </div>
+  </div>
+    
+
+
+
+
+
+  <div id = "write">
+    <p>my number: </p>
+  </div>
+<script>
+document.getElementById("write").innerHTML = window.location.search;
+document.getElementById("write").innerHTML = window.location.search;
+</script>
+</body>
+</html>

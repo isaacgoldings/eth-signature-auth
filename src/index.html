@@ -56,18 +56,43 @@
           <div id="loader" class="text-center">
             <p class="text-center">Loading...</p>
           </div>
+
           <div id="content">
-            <form onSubmit="App.createTask(); return false;">
-              <input id="newTask" type="text" class="form-control" placeholder="Add task..." required>
-              <input type="submit" hidden="">
-            </form>
+            
+            <div style="color: aqua; background-color: red; padding: 20px;">
+              <form onSubmit="App.createTask(); return false;">
+                <input id="newTask" type="text" class="form-control" placeholder="Email" required>
+                <!-- <label for="myfile">Select a file:</label> -->
+                <input type="file" id="myfile" name="myfile">
+                <!-- <input id="newTaskAddress" type="text" class="form-control" placeholder="Email Address" required> -->
+                <input type="submit" hidden="">
+              </form>
+            </div>
+
             <ul id="taskList" class="list-unstyled">
+              
+              <form class="taskTemplate" action="dashboard.html" method="GET">
               <div class="taskTemplate" class="checkbox" style="display: none">
-                <label>
-                  <input type="checkbox" />
-                  <span class="content">Task content goes here...</span>
-                </label>
+                <!-- <label> -->
+                  <input type="checkbox" class="xyz"/>
+                  
+                  <!-- <input id="submitter"type="submit" value="view->" onclick="dosomething(this.value)"> -->
+                  <!-- <input type="button" type="hidden" value="myhiddentextinput"> -->
+                  <!-- <input type="submit" type="hidden"> -->
+                  
+                    <a class="content" type="submit" href="dashboard.html" onclick="myFunction()" id="clickedContent"></a>
+                  
+                <!-- </label> -->
               </div>
+              
+              <input type="hidden" name="hid2" value="hid3" id="hid">
+
+              
+              <!-- <input type="text" name="serialNumber" /> -->
+
+              <!-- <input type="submit" value="Submit" onclick="myFunction()"/> -->
+            </form>
+
             </ul>
             <ul id="completedTaskList" class="list-unstyled">
             </ul>
@@ -83,5 +108,22 @@
     <script src ="vendor/web3/dist/web3.js"></script>
     <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
     <script src="app.js"></script>
+    <!-- <script>
+      document.getElementById("hid").value = document.getElementsByClassName("content").innerHTML;
+
+  </script> -->
+  <script>
+    function myFunction() {
+      var inputValue = document.getElementById("clickedContent").value;
+      console.log(inputValue);
+      document.getElementById("hid").value = "jacob";
+
+      // document.getElementById("hid").value = document.getElementById("clickedContent");
+    }
+    function dosomething(val){
+      document.getElementById("hid").value = "didsomething";
+  console.log(val);
+}
+    </script>
   </body>
 </html>

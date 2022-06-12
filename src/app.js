@@ -45,17 +45,27 @@ App = {
   loadAccount: async () => {
     // Set the current blockchain account
     App.account = web3.eth.accounts[0]
+    console.log("App.account");
+    console.log(App.account);
     web3.eth.defaultAccount = web3.eth.accounts[0];
+    console.log("web3.eth.defaultAccount");
+    console.log(web3.eth.defaultAccount);
   },
 
   loadContract: async () => {
     // Create a JavaScript version of the smart contract
     const todoList = await $.getJSON('TodoList.json')
+    console.log("todoList");
+    console.log(todoList);
     App.contracts.TodoList = TruffleContract(todoList)
+    console.log("App.contracts.TodoList");
+    console.log(App.contracts.TodoList);
     App.contracts.TodoList.setProvider(App.web3Provider)
 
     // Hydrate the smart contract with values from the blockchain
     App.todoList = await App.contracts.TodoList.deployed()
+    console.log("App.todoList");
+    console.log(App.todoList);
   },
 
   render: async () => {
@@ -89,15 +99,26 @@ App = {
       const taskId = task[0].toNumber()
       const taskContent = task[1]
       const taskCompleted = task[2]
+      // const taskCreatedBy = task[3]
+      console.log("task");
+      console.log(task);
+      console.log("taskId");
+      console.log(taskId);
+      console.log("taskContent");
+      console.log(taskContent);
+      console.log("taskCompleted");
+      console.log(taskCompleted);
+
 
       // Create the html for the task
       const $newTaskTemplate = $taskTemplate.clone()
       $newTaskTemplate.find('.content').html(taskContent)
-      $newTaskTemplate.find('input')
-                      .prop('name', taskId)
+      $newTaskTemplate.find('input').prop('name', taskId)
                       .prop('checked', taskCompleted)
                       .on('click', App.toggleCompleted)
+                      // .on('click', App.toggleCompleted)
 
+      // $newTaskTemplate.find('xyz').on('click', App.toggleCompleted)
       // Put the task in the correct list
       if (taskCompleted) {
         $('#completedTaskList').append($newTaskTemplate)
@@ -112,7 +133,10 @@ App = {
 
   createTask: async () => {
     App.setLoading(true)
-    const content = $('#newTask').val()
+    const email = $('#newTask').val()
+    const content = $('#myfile').val()
+    // console.log(content);
+    // const address = $('#newTaskAddress').val()
     await App.todoList.createTask(content)
     window.location.reload()
   },
@@ -137,6 +161,9 @@ App = {
     }
   }
 }
+
+console.log("hi");
+
 
 $(() => {
   $(window).load(() => {
