@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 // const session = require('express-session');
 
+app.use(express.static('public'));
 
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'))
