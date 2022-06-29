@@ -97,7 +97,8 @@ App = {
       // Fetch the task data from the blockchain
       const task = await App.todoList.tasks(i)
       const taskId = task[0].toNumber()
-      const taskContent = task[1]
+      const taskContentPre = task[1];
+      const taskContent = taskContentPre.substring(taskContentPre.indexOf('h\\') + 2);
       const taskCompleted = task[3]
       const taskCreatedBy = task[2]
        console.log("task");
