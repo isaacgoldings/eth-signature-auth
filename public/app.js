@@ -113,6 +113,7 @@ App = {
       // Create the html for the task
       const $newTaskTemplate = $taskTemplate.clone()
       $newTaskTemplate.find('.content').html(taskContent)
+      $newTaskTemplate.find('.content2').html(taskCreatedBy)
       $newTaskTemplate.find('input').prop('name', taskId)
                       .prop('checked', taskCompleted)
                       .on('click', App.toggleCompleted)

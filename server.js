@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const session = require('express-session');
 const bodyParser = require('body-parser')
+var fs = require('fs');
+var path = require('path');
 
 app.use(bodyParser.json())
 
@@ -13,7 +15,6 @@ let isLoggedIn = false;
 app.use(express.static('public'));
 app.use(express.static('build'));
 
-const path = require('path');
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
@@ -30,13 +31,36 @@ app.get('/', (req, res) => {
     //res.render('index')
 })
 
+/**
+ * Beginning of Schema Definition
+ */
 const User = require('./models/User');
-
+const Document = require('./models/Document');
 
 //Routes
 const userRoute = require('./routes/users');
+const documentRoute = require('./routes/documents');
 
 app.use('/users', userRoute);
+app.use('/documents', documentRoute);
+
+// multer is for file uploads
+const multer = require("multer")
+
+// send uploads to ./uploads
+const fileStorageEngine = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, './uploads');
+      cb(null, './uploads/previews');
+      cb(null, './uploads/thumbs');
+  },
+  filename: (req, file, cb) => {
+      cb(null, Date.now() + "--" + file.originalname);
+  },
+});
+
+const upload = multer({storage: fileStorageEngine});
+
 
 
 
@@ -86,6 +110,19 @@ app.get('/index', (req, res) => {
 });
 
 
+// var uploadedFile = new Schema({
+//   filename: String,
+//   recipient: String,
+// });
+
+// var singleUploadedFile = mongoose.model('singleUploadedFile', uploadedFile);
+
+// const fileToUpload = new singleUploadedFile({
+//   filename: req.file.filename,
+//   recipient: req.file.recipient,
+// });
+// fileToUpload.save()
+
 //******database stuff
 const mongoClient  = require("mongodb");
 
@@ -123,6 +160,65 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // Define schema
 var Schema = mongoose.Schema;
 
+// File schema for DB
+var uploadedFile = new Schema({
+  fieldname: String,
+  originalname: String,
+  encoding: String,
+  mimetype: String,
+  destination: String,
+  filename: String,
+  path: String,
+  size: Number,
+  isMultiUpload: Boolean,
+  hasBeenSigned: Boolean,
+  recipient: String,
+  // email: String,
+  // name: String,
+});
+
+
+
+// Initialize userModel for DB
+var singleUploadedFile = mongoose.model('singleUploadedFile', uploadedFile);
+
+app.post('/documentUpload', upload.single('image'),(req,res)=>{
+    console.log(req.file.filename);
+    console.log(req.body.signcheck);
+    console.log(req.body.recipient);
+    let signed = req.body.signcheck=='on' ? true : false;
+    let recipientIs = req.body.recipient;
+    const fileToUpload = new singleUploadedFile({
+      fieldname: req.file.fieldname,
+      originalname: req.file.originalname,
+      encoding: req.file.encoding,
+      mimetype: req.file.mimetype,
+      destination: req.file.destination,
+      filename: req.file.filename,
+      path: req.file.path,
+      size: req.file.size,
+      isMultiUpload: false,
+      hasBeenSigned: signed,
+      recipient: recipientIs,
+      // email: req.body.name,
+      // name: req.body.name,
+    });
+    fileToUpload.save()
+
+    const documentSingle = new Document({
+      user_name: userProfile.displayName, 
+      email: userProfile._json.email,
+      hasBeenSigned: signed,
+      isMultiUpload: false,
+      size: req.file.size,
+      filename: req.file.filename,
+      date: Date.now(),
+      recipient: recipientIs,
+    });
+    documentSingle.save()
+
+});
+
 
 
 /*  Google AUTH  */
@@ -140,6 +236,8 @@ passport.use(new GoogleStrategy({
       return done(null, userProfile);
   }
 ));
+
+
  
 app.get('/auth/google', 
   passport.authenticate('google', { scope : ['profile', 'email'] }));
