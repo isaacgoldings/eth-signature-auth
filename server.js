@@ -6,11 +6,10 @@ var fs = require('fs');
 var path = require('path');
 
 app.use(bodyParser.json())
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 let isLoggedIn = false;
-
 
 app.use(express.static('public'));
 app.use(express.static('build'));
@@ -24,11 +23,8 @@ app.use(session({
     secret: 'SECRET' 
   }));
   
-
-// respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
     res.render('login')
-    //res.render('index')
 })
 
 /**
@@ -61,19 +57,8 @@ const fileStorageEngine = multer.diskStorage({
 
 const upload = multer({storage: fileStorageEngine});
 
-
-
-
 const port = process.env.PORT || 3009
 app.listen(port , () => console.log('App listening on port ' + port));
-
-// function print(){
-//     console.log("hello")
-
-// }
-
-// print();
-
 
 /*  PASSPORT SETUP  */
 
@@ -92,6 +77,9 @@ app.get('/error', (req, res) => res.send("error logging in"));
 app.get('/index', (req, res) => {
    // res.send(userProfile)
 
+   console.log(req.body);
+   console.log(res.body);
+  //  console.log(res.json());
    app.locals.displayName = userProfile.displayName;
    app.locals.email = userProfile._json.email;
    app.locals.name = userProfile._json.name;
@@ -237,6 +225,21 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+
+
+app.post('/details', (req, res)=>{
+  
+  app.locals.jacob = req.body.jacob;
+  const test = req.body.jacob;
+  console.log(req.body);
+  const myObj = JSON.stringify(req.body);  
+  const num = myObj;
+  console.log(myObj);
+  console.log(req.params);
+  res.render('details',{name:"THIS IS THE NAME", test:test, num:num});
+
+
+})
 
  
 app.get('/auth/google', 

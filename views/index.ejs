@@ -10,7 +10,7 @@
     <title>Document Signature Authentication</title>
 
     <!-- Bootstrap -->
-    <link href="/bootstrap/dist/css/bootstrap.min.css">
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -105,18 +105,25 @@
               <div class="taskTemplate" class="checkbox" style="display: none">
                 <div style="background-color:lightgray;">
                   <input type="checkbox" class="xyz"/>
-                  <a class="content" type="submit" href="dashboard.html" onclick="myFunction()" id="clickedContent"></a>
+                  <a class="content" type="submit" href="details.ejs" onclick="myFunction()" id="clickedContent"></a>
                   <p class="content2"></p>
+                  
                 </div>
                   
               </div>
               
               <input type="hidden" name="hid2" value="hid3" id="hid">
 
-              
+              <!-- <script>
+              const cC = JSON.stringify(Document.getElementById("clickedContent"));
+              </script> -->
+
+              <input type="hidden" name="jacob" value="jacob">
+
               <!-- <input type="text" name="serialNumber" /> -->
 
               <!-- <input type="submit" value="Submit" onclick="myFunction()"/> -->
+              <button type="submit">button</button>
             </form>
 
             </ul>
