@@ -5,6 +5,17 @@ const bodyParser = require('body-parser')
 var fs = require('fs');
 var path = require('path');
 
+//s3 stuff
+
+const util = require('util')
+const unlinkFile = util.promisify(fs.unlink)
+
+const multer = require('multer')
+const upload_s3 = multer({ dest: 'uploads/' })
+
+const { uploadFile, getFileStream } = require('./src/s3')
+//import s3 from ('./src/s3')
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -27,6 +38,21 @@ app.get('/', (req, res) => {
     res.render('login')
 })
 
+//s3 test route
+app.post('/images', upload_s3.single('image'), async (req, res) => {
+  const file = req.file
+  console.log(file)
+
+  // apply filter
+  // resize 
+
+  const result = await uploadFile(file)
+  await unlinkFile(file.path)
+  console.log(result)
+  const description = req.body.description
+  res.send({imagePath: `/images/${result.Key}`})
+})
+
 /**
  * Beginning of Schema Definition
  */
@@ -41,7 +67,7 @@ app.use('/users', userRoute);
 app.use('/documents', documentRoute);
 
 // multer is for file uploads
-const multer = require("multer")
+//const multer = require("multer")
 
 // send uploads to ./uploads
 const fileStorageEngine = multer.diskStorage({
@@ -171,9 +197,9 @@ var uploadedFile = new Schema({
 var singleUploadedFile = mongoose.model('singleUploadedFile', uploadedFile);
 
 app.post('/documentUpload', upload.single('image'),(req,res)=>{
-    console.log(req.file.filename);
-    console.log(req.body.signcheck);
-    console.log(req.body.recipient);
+//    console.log(req.file.filename);
+//    console.log(req.body.signcheck);
+//    console.log(req.body.recipient);
     let signed = req.body.signcheck=='on' ? true : false;
     let recipientIs = req.body.recipient;
     const fileToUpload = new singleUploadedFile({
@@ -207,7 +233,21 @@ app.post('/documentUpload', upload.single('image'),(req,res)=>{
 
 });
 
+//s3 post route
+app.post('/images', upload.single('image'), async (req, res) => {
+  console.log("file here")
+  const file = req.file
+  console.log(file)
 
+  // apply filter
+  // resize 
+
+  const result = await uploadFile(file)
+  await unlinkFile(file.path)
+  console.log(result)
+  const description = req.body.description
+  res.send({imagePath: `/images/${result.Key}`})
+})
 
 /*  Google AUTH  */
  
