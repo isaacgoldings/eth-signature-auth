@@ -149,7 +149,7 @@ app.get('/index', (req, res) => {
 const mongoClient  = require("mongodb");
 
 
-const uri = "mongodb+srv://jschireson:A23hkL7cvc98!!@cluster0.gd3ly.mongodb.net/signatureauth?retryWrites=true&w=majority";
+const uri = process.env.DBACCESSKEY;
 
 const client = new mongoClient.MongoClient(uri);
 
@@ -170,7 +170,7 @@ passport.deserializeUser(function(obj, cb) {
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-var mongoDB = "mongodb+srv://jschireson:A23hkL7cvc98!!@cluster0.gd3ly.mongodb.net/signatureauth?retryWrites=true&w=majority";
+var mongoDB = process.env.DBACCESSKEY;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Get the default connection
