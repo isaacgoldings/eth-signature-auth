@@ -13,7 +13,7 @@ const unlinkFile = util.promisify(fs.unlink)
 const multer = require('multer')
 const upload_s3 = multer({ dest: 'uploads/' })
 
-const { uploadFile, getFileStream } = require('./src/s3')
+const { uploadFile, getFileStream } = require('./public/s3')
 //import s3 from ('./src/s3')
 
 app.use(bodyParser.json())
@@ -206,10 +206,12 @@ var uploadedFile = new Schema({
 // Initialize userModel for DB
 var singleUploadedFile = mongoose.model('singleUploadedFile', uploadedFile);
 
-app.post('/documentUpload', upload.single('image'),(req,res)=>{
+app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
 //    console.log(req.file.filename);
 //    console.log(req.body.signcheck);
 //    console.log(req.body.recipient);
+    const file = req.file
+
     let signed = req.body.signcheck=='on' ? true : false;
     let recipientIs = req.body.recipient;
     const fileToUpload = new singleUploadedFile({
@@ -241,6 +243,17 @@ app.post('/documentUpload', upload.single('image'),(req,res)=>{
     });
     documentSingle.save()
 
+    console.log("file here")
+    console.log(file)
+  
+    // apply filter
+    // resize 
+  
+    const result = await uploadFile(file)
+    await unlinkFile(file.path)
+    console.log(result)
+    const description = req.body.description
+    res.send({imagePath: `/images/${result.Key}`})
 });
 
 //s3 post route
