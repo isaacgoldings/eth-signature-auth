@@ -53,6 +53,14 @@ app.post('/images', upload_s3.single('image'), async (req, res) => {
   res.send({imagePath: `/images/${result.Key}`})
 })
 
+app.get('/images/:key', (req, res) => {
+  console.log(req.params)
+  const key = req.params.key
+  const readStream = getFileStream(key)
+
+  readStream.pipe(res)
+})
+
 /**
  * Beginning of Schema Definition
  */
