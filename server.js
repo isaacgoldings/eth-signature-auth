@@ -210,6 +210,7 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
 //    console.log(req.file.filename);
 //    console.log(req.body.signcheck);
 //    console.log(req.body.recipient);
+console.log(req.body);
     const file = req.file
 
     let signed = req.body.signcheck=='on' ? true : false;
@@ -253,7 +254,10 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
     await unlinkFile(file.path)
     console.log(result)
     const description = req.body.description
-    res.send({imagePath: `/images/${result.Key}`})
+    //res.send({imagePath: `/images/${result.Key}`})
+
+    res.redirect("/index")
+    
 });
 
 //s3 post route

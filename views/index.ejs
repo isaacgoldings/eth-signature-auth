@@ -79,7 +79,7 @@
           </form>
 
             <div style="color: black; background-color: lightgrey; padding: 20px;">
-              <form onSubmit="App.createTask(); return false;" method="POST" action="/documentUpload">
+              <form onSubmit="App.createTask();" method="POST" action="/documentUpload" enctype="multipart/form-data">
                 <h3>upload to chain</h3>
                 <div>
                   <label for="myfile">Select a file:</label>
