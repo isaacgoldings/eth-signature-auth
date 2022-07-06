@@ -41,6 +41,7 @@ app.get('/', (req, res) => {
 //s3 test route
 app.post('/images', upload_s3.single('image'), async (req, res) => {
   const file = req.file
+  console.log("FILE:");
   console.log(file)
 
   // apply filter
@@ -48,6 +49,7 @@ app.post('/images', upload_s3.single('image'), async (req, res) => {
 
   const result = await uploadFile(file)
   await unlinkFile(file.path)
+  console.log("S3 Info");
   console.log(result)
   const description = req.body.description
   res.send({imagePath: `/images/${result.Key}`})
