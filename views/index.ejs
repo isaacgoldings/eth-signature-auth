@@ -67,20 +67,28 @@
 
             <!-- <img src="/images/b515b828d500e6b505d335bc070571d7" alt=""> -->
 
-            <form action="/documentUpload" method="POST" enctype="multipart/form-data" id="singleForm">
+            <!-- 
+              
+              
+              DONT CUT YET
+            
+            
+            -->
+            <!-- <form action="/documentUpload" method="POST" enctype="multipart/form-data" id="singleForm">
               <h3>Upload to the DB</h3>
               <input type="file" name="image" />
               <p style="display: inline;">Sign?</p><input type="checkbox" name="signcheck">
               <button type="submit" class="btn btn-outline-primary">Submit</button>
-          </form>
+          </form> -->
 
+          <h3>Welcome, <%= displayName %></h3>
+          <p><%= email %></p>
           <form action="/logout" method="POST">
             <button type="submit" class="btn btn-danger"><span class="fa fa-google"></span> SignOut</button>
           </form>
-
-            <div style="color: black; background-color: lightgrey; padding: 20px;">
+            <div style="color: black; background-color: #e3f2fd; padding: 20px; border-radius: 10px;">
               <form onSubmit="App.createTask();" method="POST" action="/documentUpload" enctype="multipart/form-data">
-                <h3>upload to chain</h3>
+                <h3>Upload Documents</h3>
                 <div>
                   <label for="myfile">Select a file:</label>
                   <input type="file" id="myfile" name="image">

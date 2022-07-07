@@ -116,6 +116,7 @@ app.get('/index', (req, res) => {
    console.log(req.body);
    console.log(res.body);
   //  console.log(res.json());
+  console.log(userProfile);
    app.locals.displayName = userProfile.displayName;
    app.locals.email = userProfile._json.email;
    app.locals.name = userProfile._json.name;
@@ -306,6 +307,10 @@ app.post('/details', (req, res)=>{
   res.render('details',{name:"THIS IS THE NAME", test:test, num:num});
 
 
+})
+
+app.get('/settings', (req,res)=> {
+  res.render('settings');
 })
 
  
