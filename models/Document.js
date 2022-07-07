@@ -25,6 +25,7 @@ const DocumentSchema = mongoose.Schema({
     filename: String,
     date: Number,
     recipient: String,
+    sender: String,
     
 });
 

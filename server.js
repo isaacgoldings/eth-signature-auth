@@ -198,6 +198,7 @@ var uploadedFile = new Schema({
   isMultiUpload: Boolean,
   hasBeenSigned: Boolean,
   recipient: String,
+  sender: String,
   // email: String,
   // name: String,
 });
@@ -228,6 +229,7 @@ console.log(req.body);
       isMultiUpload: false,
       hasBeenSigned: signed,
       recipient: recipientIs,
+      sender: app.locals.email,
       // email: req.body.name,
       // name: req.body.name,
     });
@@ -242,6 +244,7 @@ console.log(req.body);
       filename: req.file.filename,
       date: Date.now(),
       recipient: recipientIs,
+      sender: app.locals.email,
     });
     documentSingle.save()
 
