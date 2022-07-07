@@ -47,6 +47,8 @@ App = {
     App.account = web3.eth.accounts[0]
     console.log("App.account");
     console.log(App.account);
+    console.log("web3.eth.accounts");
+    console.log(web3.eth.accounts);
     web3.eth.defaultAccount = web3.eth.accounts[0];
     console.log("web3.eth.defaultAccount");
     console.log(web3.eth.defaultAccount);
@@ -99,8 +101,9 @@ App = {
       const taskId = task[0].toNumber()
       const taskContentPre = task[1];
       const taskContent = taskContentPre.substring(taskContentPre.indexOf('h\\') + 2);
-      const taskCompleted = task[3]
       const taskCreatedBy = task[2]
+      const taskCompleted = task[3]
+      const taskHash = task[4]
        console.log("task");
        console.log(task);
       // console.log("taskId");
@@ -115,6 +118,7 @@ App = {
       const $newTaskTemplate = $taskTemplate.clone()
       $newTaskTemplate.find('.content').html(taskContent)
       $newTaskTemplate.find('.content2').html(taskCreatedBy)
+      $newTaskTemplate.find('.hashc0d3').html(taskHash)
       $newTaskTemplate.find('input').prop('name', taskId)
                       .prop('checked', taskCompleted)
                       .on('click', App.toggleCompleted)
@@ -137,9 +141,10 @@ App = {
     App.setLoading(true)
     const email = $('#newTask').val()
     const content = $('#myfile').val()
+    const hash = $('#hashc0d3').val()
     // console.log(content);
     // const address = $('#newTaskAddress').val()
-    await App.todoList.createTask(content, email)
+    await App.todoList.createTask(content, email, hash)
     window.location.reload()
   },
 

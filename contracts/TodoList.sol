@@ -7,6 +7,7 @@ contract TodoList {
     uint id;
     string content;
     string createdBy;
+    string hashCode;
     bool completed;
   }
 
@@ -16,6 +17,7 @@ contract TodoList {
     uint id,
     string content,
     string createdBy,
+    string hashCode,
     bool completed
   );
 
@@ -25,13 +27,13 @@ contract TodoList {
   );
 
   constructor() public {
-    createTask("Check out dappuniversity.com", "hi");
+    createTask("Check out dappuniversity.com", "hi", "aC00LHaSh");
   }
 
-  function createTask(string memory _content, string memory _createdBy) public {
+  function createTask(string memory _content, string memory _createdBy, string memory _hashCode) public {
     taskCount ++;
-    tasks[taskCount] = Task(taskCount, _content, _createdBy, false);
-    emit TaskCreated(taskCount, _content, _createdBy, false);
+    tasks[taskCount] = Task(taskCount, _content, _createdBy, _hashCode, false);
+    emit TaskCreated(taskCount, _content, _createdBy, _hashCode, false);
   }
 
   function toggleCompleted(uint _id) public {
