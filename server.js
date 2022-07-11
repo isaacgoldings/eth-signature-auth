@@ -199,6 +199,7 @@ var uploadedFile = new Schema({
   hasBeenSigned: Boolean,
   recipient: String,
   sender: String,
+  hashCode: String,
   // email: String,
   // name: String,
 });
@@ -230,6 +231,7 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
       hasBeenSigned: signed,
       recipient: recipientIs,
       sender: app.locals.email,
+      hashCode: req.body.hashc0d3,
       // email: req.body.name,
       // name: req.body.name,
     });
@@ -245,6 +247,7 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
       date: Date.now(),
       recipient: recipientIs,
       sender: app.locals.email,
+      hashCode: req.body.hashc0d3,
     });
     documentSingle.save()
 

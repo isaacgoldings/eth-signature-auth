@@ -142,9 +142,10 @@ App = {
     const email = $('#newTask').val()
     const content = $('#myfile').val()
     const hash = $('#hashc0d3').val()
+    const sender = $('#senderE').val()
     // console.log(content);
     // const address = $('#newTaskAddress').val()
-    await App.todoList.createTask(content, email, hash)
+    await App.todoList.createTask(content, email, hash, sender)
     window.location.reload()
   },
 
