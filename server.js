@@ -209,10 +209,10 @@ var uploadedFile = new Schema({
 var singleUploadedFile = mongoose.model('singleUploadedFile', uploadedFile);
 
 app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
-//    console.log(req.file.filename);
-//    console.log(req.body.signcheck);
-//    console.log(req.body.recipient);
-console.log(req.body);
+
+  console.log(req.body);
+  console.log("Logging");
+  console.log(req.body.log);
     const file = req.file
 
     let signed = req.body.signcheck=='on' ? true : false;

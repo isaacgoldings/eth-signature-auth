@@ -91,12 +91,15 @@
                 <h3>Upload Documents</h3>
                 <div>
                   <label for="myfile">Select a file:</label>
-                  <input type="file" id="myfile" name="image">
+                  <input type="file" id="myfile" name="image" onchange="previewFile()">
+                  <img src="" height="200" alt="Image preview...">
+                  <p>MD5 Hash: <span id="md5"></span></p>
                 </div>
                 
                 <br>
                 <label for="newTask">Enter Recipient</label>
                 <input id="newTask" type="text" class="form-control" placeholder="Email" required name="recipient">
+                <!-- hidden is log equivalent -->
                 <input type="hidden" name="hashc0d3" id="hashc0d3" value="hashc0d3">
                 <br>
                 <!-- <input id="newTaskAddress" type="text" class="form-control" placeholder="Email Address" required> -->
@@ -143,7 +146,8 @@
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src ="web3.js"></script>
     <script src="truffle-contract.js"></script> 
-<!-- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <!-- 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/js/bootstrap.min.js"></script> -->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script> -->
     <!-- <script src="https://www.jsdelivr.com/package/npm/truffle-contract"></script> -->
@@ -152,18 +156,60 @@
       document.getElementById("hid").value = document.getElementsByClassName("content").innerHTML;
 
   </script> -->
-  <script>
-    function myFunction() {
-      var inputValue = document.getElementById("clickedContent").value;
-      console.log(inputValue);
-      document.getElementById("hid").value = "jacob";
 
-      // document.getElementById("hid").value = document.getElementById("clickedContent");
+
+  <script>
+    // const input = document.getElementById('newTask').value;
+    // const log = document.getElementById('hashc0d3').value;
+
+    // input.addEventListener('change', updateValue);
+
+    // function updateValue(e){
+    //   log.textContent = e.target.value;
+    // }
+
+    // const fileInput = document.getElementById('myfile');
+    // const handleFiles = () => {
+    // const selectedFiles = [...fileInput.files];
+    // console.log("files");
+    // console.log(selectedFiles);
+    // }
+    // fileInput.addEventListener("change", handleFiles);
+
+
+    $("#myfile").change(
+      function(){
+        var reader = new FileReader();
+
+        reader.addEventListener(
+          'load',
+          function(){
+            var wordArray = CryptoJS.lib.WordArray.create(this.result);
+            $("#md5").text(CryptoJS.MD5(wordArray));
+          }
+        );
+        reader.readAsArrayBuffer(this.files[0]);
+      }
+    )
+
+    function previewFile() {
+    const preview = document.querySelector('img');
+    const file = document.querySelector('input[type=file]').files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener("load", function () {
+      // convert image file to base64 string
+      preview.src = reader.result;
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
     }
-    function dosomething(val){
-      document.getElementById("hid").value = "didsomething";
-  console.log(val);
-}
+  } 
+
+
     </script>
+
+
   </body>
 </html>
