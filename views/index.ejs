@@ -45,6 +45,9 @@
         color: grey;
         text-decoration: line-through;
       }
+      #the-canvas {
+      outline: black 3px solid;
+      }
     </style>
   </head>
   <body>
@@ -91,14 +94,15 @@
                 <h3>Upload Documents</h3>
                 <div>
                   <label for="myfile">Select a file:</label>
-                  <input type="file" id="myfile" name="image" onchange="previewFile()">
-                  <img src="" height="200" alt="Image preview...">
+                  <input type="file" id="myfile" name="image" required onchange="previewFile()">
+                  <canvas id="the-canvas"></canvas>
+                  <!-- <img src="" height="200" alt="Image preview..."> -->
                   <input type="hidden" value="">
                   <p id="hashCode" name="hashCode" value="hashCode"></p>
-                  <p id="senderEmail2"><%= email %></p>
+                  <p id="senderEmail2" style="display: none;"><%= email %></p>
                 </div>
                 
-                <br>
+                <!-- <br> -->
                 <label for="newTask">Enter Recipient</label>
                 <input id="newTask" type="text" class="form-control" placeholder="Email" required name="recipient">
                 <!-- hidden is log equivalent -->
@@ -150,6 +154,8 @@
     <script src ="web3.js"></script>
     <script src="truffle-contract.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <!-- for pdf render -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
     <!-- 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/js/bootstrap.min.js"></script> -->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script> -->
@@ -187,20 +193,72 @@
       }
     )
 
-    function previewFile() {
-    const preview = document.querySelector('img');
-    const file = document.querySelector('input[type=file]').files[0];
-    const reader = new FileReader();
+  //   function previewFile() {
+  //   const preview = document.querySelector('img');
+  //   const file = document.querySelector('input[type=file]').files[0];
+  //   const reader = new FileReader();
 
-    reader.addEventListener("load", function () {
-      // convert image file to base64 string
-      preview.src = reader.result;
-    }, false);
+  //   reader.addEventListener("load", function () {
+  //     // convert image file to base64 string
+  //     preview.src = reader.result;
+  //   }, false);
 
-    if (file) {
-      reader.readAsDataURL(file);
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //   }
+  // } 
+
+
+  const PDF_TYPE = "application/pdf";
+const TXT_TYPE = "text/plain";
+
+document.getElementById('myfile').addEventListener('change', handleFileSelect, false);
+
+
+function handleFileSelect(evt) {
+  var files = evt.target.files; // FileList object
+  for (var i = 0, f; f = files[i]; i++) {
+    let fileType = files[i].type;
+    if (fileType === PDF_TYPE) {
+      handlePDFFile(files[i]);
+    } else {
+      console.error(`cannot handle file type: ${fileType}`)
     }
-  } 
+  }
+}
+
+
+function handlePDFFile(file) {
+  var reader = new FileReader();
+
+  reader.onload = (function(reader) {
+    return function() {
+      var contents = reader.result;
+      var loadingTask = pdfjsLib.getDocument(contents);
+
+      loadingTask.promise.then(function(pdf) {
+        pdf.getPage(1).then(function(page) {
+          var scale = 0.5;
+          var viewport = page.getViewport({
+            scale: scale,
+          });
+
+          var canvas = document.getElementById('the-canvas');
+          var context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+          page.render(renderContext);
+        });
+      });
+    }
+  })(reader);
+  reader.readAsDataURL(file);
+}
 
 
     </script>
