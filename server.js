@@ -217,19 +217,19 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
     const file = req.file
 
     let signed = req.body.signcheck=='on' ? true : false;
-    let recipientIs = req.body.recipient;
+    // let recipientIs = req.body.recipient;
     const fileToUpload = new singleUploadedFile({
-      fieldname: req.file.fieldname,
-      originalname: req.file.originalname,
-      encoding: req.file.encoding,
-      mimetype: req.file.mimetype,
-      destination: req.file.destination,
-      filename: req.file.filename,
-      path: req.file.path,
-      size: req.file.size,
-      isMultiUpload: false,
+      // fieldname: req.file.fieldname,
+      // originalname: req.file.originalname,
+      // encoding: req.file.encoding,
+      // mimetype: req.file.mimetype,
+      // destination: req.file.destination,
+      // filename: req.file.filename,
+      // path: req.file.path,
+      // size: req.file.size,
+      // isMultiUpload: false,
       hasBeenSigned: signed,
-      recipient: recipientIs,
+      // recipient: recipientIs,
       sender: app.locals.email,
       hashCode: req.body.hashc0d3,
       // email: req.body.name,
@@ -241,11 +241,11 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
       user_name: userProfile.displayName, 
       email: userProfile._json.email,
       hasBeenSigned: signed,
-      isMultiUpload: false,
-      size: req.file.size,
-      filename: req.file.filename,
+      // isMultiUpload: false,
+      // size: req.file.size,
+      // filename: req.file.filename,
       date: Date.now(),
-      recipient: recipientIs,
+      // recipient: recipientIs,
       sender: app.locals.email,
       hashCode: req.body.hashc0d3,
     });
@@ -257,13 +257,13 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
     // apply filter
     // resize 
   
-    const result = await uploadFile(file)
-    await unlinkFile(file.path)
-    console.log(result)
-    const description = req.body.description
+    // const result = await uploadFile(file)
+    // await unlinkFile(file.path)
+    // console.log(result)
+    // const description = req.body.description
     //res.send({imagePath: `/images/${result.Key}`})
 
-    res.redirect("/index")
+    res.redirect("/settings")
     
 });
 

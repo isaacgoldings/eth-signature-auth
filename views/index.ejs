@@ -88,25 +88,20 @@
           </form>
             <div style="color: black; background-color: #e3f2fd; padding: 20px; border-radius: 10px;">
               <form onSubmit="App.createTask();" method="POST" action="/documentUpload" enctype="multipart/form-data">
-                <h3>Upload Documents</h3>
+                <h3>Terms and Conditions</h3>
                 <div>
-                  <label for="myfile">Select a file:</label>
-                  <input type="file" id="myfile" name="image" onchange="previewFile()">
-                  <img src="" height="200" alt="Image preview...">
-                  <input type="hidden" value="">
+                  <img src="https://www.termsfeed.com/public/uploads/2021/12/sample-terms-conditions-agreement-screenshot-2.jpg" height="400"alt="" id="myfile"><br><br>
+                  <input type="checkbox" id="signcheck" name="signcheck">
+                  <label for="signcheck">I agree to the terms and conditions</label>
                   <p id="hashCode" name="hashCode" value="hashCode"></p>
-                  <p id="senderEmail2"><%= email %></p>
+                  <p style="display: none;" id="senderEmail2"><%= email %></p>
                 </div>
-                
-                <br>
-                <label for="newTask">Enter Recipient</label>
-                <input id="newTask" type="text" class="form-control" placeholder="Email" required name="recipient">
+                <input id="newTask" type="text" class="form-control" placeholder="Email" value="placeholder" name="recipient" style="display: none;">
                 <!-- hidden is log equivalent -->
                 <input type="hidden" name="hashc0d3" id="hashc0d3" value="hashc0d3">
                 <input type="hidden" name="senderE" id="senderE" value="senderE">
-                <br>
                 <!-- <input id="newTaskAddress" type="text" class="form-control" placeholder="Email Address" required> -->
-                <button type="submit" class="btn btn-primary">Upload to Blockchain</button>
+                <button type="submit" class="btn btn-success">Accept</button>
               </form>
             </div>
             <h3>Inbox</h3>
