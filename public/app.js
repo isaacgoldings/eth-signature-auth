@@ -68,6 +68,9 @@ App = {
     App.todoList = await App.contracts.TodoList.deployed()
     console.log("App.todoList");
     console.log(App.todoList);
+
+    // let results = await App.todoList.createTask('path', 'receiver', 'hash', 'sender')
+    // console.log(results);
   },
 
   render: async () => {
