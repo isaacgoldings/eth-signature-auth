@@ -90,7 +90,7 @@
               <form onSubmit="App.createTask();" method="POST" action="/documentUpload" enctype="multipart/form-data">
                 <h3>Terms and Conditions</h3>
                 <div>
-                  <embed src=http://www.africau.edu/images/default/sample.pdf type="application/pdf" height="400"alt="" id="myfile"></embed><br>
+                  <iframe src="http://www.africau.edu/images/default/sample.pdf" width="100%" height="500px"></iframe>                  
                   <!-- <img src="http://www.africau.edu/images/default/sample.pdf" height="400"alt="" id="myfile"><br><br> -->
                   <input type="checkbox" id="signcheck" name="signcheck">
                   <label for="signcheck">I agree to the terms and conditions</label>
@@ -158,6 +158,7 @@
 
 
   <script>
+    
     
     $("#myfile").change(
       function(){

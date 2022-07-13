@@ -111,6 +111,7 @@ app.get('/error', (req, res) => res.send("error logging in"));
 
 //homePage
 app.get('/index', (req, res) => {
+
    // res.send(userProfile)
 
    console.log(req.body);
