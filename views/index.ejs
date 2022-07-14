@@ -94,7 +94,7 @@
                 <div>
                   <iframe src="http://www.africau.edu/images/default/sample.pdf" width="100%" height="500px"></iframe>                  
                   <!-- <img src="http://www.africau.edu/images/default/sample.pdf" height="400"alt="" id="myfile"><br><br> -->
-                  <input type="checkbox" id="signcheck" name="signcheck">
+                  <input type="checkbox" id="signcheck" name="signcheck" onclick="modifyPdf()">
                   <label for="signcheck">I agree to the terms and conditions</label>
                   <p id="hashCode" name="hashCode" value="hashCode"></p>
                   <p style="display: none;" id="senderEmail2"><%= email %></p>
@@ -107,6 +107,12 @@
                 <button type="submit" class="btn btn-success">Accept</button>
               </form>
             </div>
+            <body>
+              <p>Click the button to modify an existing PDF document with <code>pdf-lib</code></p>
+              <button onclick="modifyPdf()">Modify PDF</button>
+              <p class="small">(Your browser will download the resulting file)</p>
+            </body>
+          
             <h3>Inbox</h3>
             <ul id="taskList" class="list-unstyled">
               
@@ -160,12 +166,7 @@
 
 
 
-  <body>
-    <p>Click the button to modify an existing PDF document with <code>pdf-lib</code></p>
-    <button onclick="modifyPdf()">Modify PDF</button>
-    <p class="small">(Your browser will download the resulting file)</p>
-  </body>
-
+  
 
   <script>
 
