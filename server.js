@@ -111,12 +111,7 @@ app.get('/error', (req, res) => res.send("error logging in"));
 
 //homePage
 app.get('/index', (req, res) => {
-   // res.send(userProfile)
-
-   console.log(req.body);
-   console.log(res.body);
-  //  console.log(res.json());
-  console.log(userProfile);
+  // console.log(userProfile);
    app.locals.displayName = userProfile.displayName;
    app.locals.email = userProfile._json.email;
    app.locals.name = userProfile._json.name;
@@ -125,7 +120,6 @@ app.get('/index', (req, res) => {
     user_name: userProfile.displayName,
     email: userProfile._json.email
   });
-
   newUser.save()
  //double check 'index' file path
   isLoggedIn ? res.render('index', {userProfile}) : res.send('you need to sign in to access this');
@@ -317,6 +311,17 @@ app.post('/details', (req, res)=>{
 
 app.get('/settings', (req,res)=> {
   res.render('settings');
+})
+
+app.get('/uploads', (req, res)=> {
+
+  const db = client.db("signatureauth");
+  const collection = db.collection('singleuploadedfiles');
+
+  collection.find({sender:"jschireson@gmail.com"}).toArray(function(err, device_list){
+    res.render('uploads', {'uploads': device_list})
+  });
+
 })
 
  
