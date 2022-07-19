@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Document Signature Authentication</title>
+    <title>Blockstamp</title>
 
     <!-- Bootstrap -->
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,13 +19,38 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+<!-- import bootstrap cdn-->
+<link rel="stylesheet" href=
+"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity=
+"sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+        crossorigin="anonymous">
+    <!-- import jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity=
+"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous">
+    </script>
+    <!-- import popper.js cdn -->
+    <script src=
+"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity=
+"sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous">
+    </script>
+    <!-- import javascript cdn -->
+    <script src=
+"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity=
+"sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous">
+    </script>
     <style>
       body{
         font-family: 'Syne', sans-serif; 
       }
       main {
-        margin-top: 60px;
+        /* margin-top: 40px; */
       }
 
       #content {
@@ -48,202 +73,268 @@
       #the-canvas {
       outline: black 3px solid;
       }
+      .container {
+  --sidebar-width: 20px;
+}
+
+.main {
+  display: flex;
+}
+
+.sidebar {
+  position: fixed;
+  overflow-y: auto;
+  height: 100%;
+  width: var(--sidebar-width);
+  z-index: 1;
+  background-color: antiquewhite;
+  padding-left: 15px;
+  padding-right: 25px;
+  margin-top: 40px;
+}
+
+.content {
+  margin-left: var(--sidebar-width);
+  flex-grow: 1;
+}
+.link{
+  background-color: pink;
+}
     </style>
   </head>
   <body>
-    <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #e3f2fd;">
+      <!-- top navbar -->
+      <!-- TOP -->
+      <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #e3f2fd;">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="" target="_blank" style="">Blockstamp</a>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
+            <small><a class="nav-link" href="#"><span id="account"></span></a></small>
+          </li>
+        </ul>
+      </nav>
+      <!-- BOTTOM -->
+      <!-- <div class="modern"> -->
+      <!-- <div class="container-fluid h-100"> -->
+        <main class="main">
+          <div class="sidebar">
+            <!-- <h4>Sidebar</h4> -->
+                  <!-- Navigation links in sidebar-->
+                  <!-- <div class="link"> -->
+                    <a href="uploads">Uploads</a>
+                  <!-- </div> -->
+                  <br/>
+                  <br/>
+                  <a href="settings">Settings</a>
+                  <br/>
+                  <br/>
+                  <a href="#">Link 3</a>
+                  <br/>
+                  <br/>
+                  <a href="#">Link 4</a>
+                  <br/>
+                  <br/>
+                  <a href="#">Sign out</a>
+          </div>
+          <!-- <div class="content">
+            <ul>
+              <li>content</li>
+              ... 
+            </ul>
+          </div> -->
+        </main>
+      <!-- </div> -->
+
+      <!-- This container contains the sidebar
+              and main content of the page -->
+      <!-- h-100 takes the full height of the body-->
+      <div class="container-fluid h-100">
+          <div class="row h-100">
+              <!-- <div class="col-2" id="green">
+                
+              </div> -->
+              <!--Contains the main content
+                      of the webpage-->
+                        <div class="" style="margin-left: 100px;">
+                          <main role="main" class="col-lg-12 d-flex justify-content-center">
+                            <div id="loader" class="text-center">
+                              <p class="text-center">Loading...</p>
+                            </div>
+                  
+                            <div id="content" style="width: inherit; margin-top: 40px;">
+                  
+                            <h3>Welcome, <%= displayName %></h3>
+                            <p id="senderEmail"><%= email %></p>
+                            <form action="/logout" method="POST">
+                              <button type="submit" class="btn btn-danger"><span class="fa fa-google"></span> SignOut</button>
+                            </form>
+                              <div style="color: black; background-color: #e3f2fd; padding: 20px; border-radius: 10px;">
+                                <form onSubmit="App.createTask();" method="POST" action="/documentUpload" enctype="multipart/form-data" >
+                                  <h3>Upload Documents</h3>
+                                  <div>
+                                    <label for="myfile">Select a file:</label>
+                                    <input type="file" id="myfile" name="image" required onchange="previewFile()">
+                                    <br><br>
+                                    <canvas id="the-canvas"></canvas>
+                                    <!-- <img src="" height="200" alt="Image preview..."> -->
+                                    <input type="hidden" value="">
+                                    <p id="hashCode" name="hashCode" value="hashCode"></p>
+                                    <p id="senderEmail2" style="display: none;"><%= email %></p>
+                                  </div>
+                                  
+                                  <!-- <br> -->
+                                  <label for="newTask">Enter Recipient</label>
+                                  <input id="newTask" type="text" class="form-control" placeholder="Email" required name="recipient">
+                                  <!-- hidden is log equivalent -->
+                                  <input type="hidden" name="hashc0d3" id="hashc0d3" value="hashc0d3">
+                                  <input type="hidden" name="senderE" id="senderE" value="senderE">
+                                  <br>
+                                  <!-- <input id="newTaskAddress" type="text" class="form-control" placeholder="Email Address" required> -->
+                                  <button type="submit" class="btn btn-primary">Upload to Blockchain</button>
+                                </form>
+                              </div>
+                              <h3>Inbox</h3>
+                              <ul id="taskList" class="list-unstyled">
+                                
+                                <form class="taskTemplate" method="POST" action="/details">
+                                <div class="taskTemplate" class="checkbox" style="display: none">
+                                  <div style="border: 2px solid lightgrey; border-radius: 15px;">
+                                    <input type="checkbox" class="xyz"/>
+                                    <a class="content" type="submit" href="details.ejs" onclick="myFunction()" id="clickedContent"></a>
+                                    <p class="content2"></p>
+                                    <p class="hashc0d3"></p>
+                                  </div>
+                                    
+                                  <!-- <button type="submit">button</button> -->
+                                  
+                                </div>
+                                
+                                <input type="hidden" name="hid2" value="hid3" id="hid">
+                  
+                                
+                                <input type="hidden" name="jacob" value="jacob">
+                  
+                              </form>
+                  
+                              </ul>
+                              <ul id="completedTaskList" class="list-unstyled">
+                              </ul>
+                            </div>
+                          </main>
+                        </div>
+                      </div>
+                  
+                      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                      <!-- Include all compiled plugins (below), or include individual files as needed -->
+                      <!-- <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
+                      <!-- <script src ="../node_modules/web3/dist/web3.js"></script> -->
+                      <!-- <script src="../node_modules/truffle-contract/dist/truffle-contract.js"></script>  -->
+                      <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+                      <script src ="web3.js"></script>
+                      <script src="truffle-contract.js"></script> 
+                      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+                      <!-- for pdf render -->
+                      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
+                      <!-- 
+                      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/js/bootstrap.min.js"></script> -->
+                      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script> -->
+                      <!-- <script src="https://www.jsdelivr.com/package/npm/truffle-contract"></script> -->
+                      <script src="./app.js"></script>
+                      <!-- <script>
+                        document.getElementById("hid").value = document.getElementsByClassName("content").innerHTML;
+                  
+                    </script> -->
+                  
+                  
+                    <script>
+                      
+                      $("#myfile").change(
+                        function(){
+                          var reader = new FileReader();
+                  
+                          reader.addEventListener(
+                            'load',
+                            function(){
+                              var wordArray = CryptoJS.lib.WordArray.create(this.result);
+                              $("#hashCode").text(CryptoJS.MD5(wordArray));
+                              var inputHidden = document.getElementById("hashc0d3");
+                              var hashValue = document.getElementById("hashCode").innerHTML;
+                              inputHidden.setAttribute('value', hashValue);
+                  
+                              var senderEmailAddress = document.getElementById("senderE");
+                              var setEmail = document.getElementById("senderEmail").innerHTML;
+                              senderEmailAddress.setAttribute('value', setEmail);
+                  
+                  
+                            }
+                          );
+                          reader.readAsArrayBuffer(this.files[0]);
+                        }
+                      )
+                  
+                    const PDF_TYPE = "application/pdf";
+                  const TXT_TYPE = "text/plain";
+                  
+                  document.getElementById('myfile').addEventListener('change', handleFileSelect, false);
+                  
+                  
+                  function handleFileSelect(evt) {
+                    var files = evt.target.files; // FileList object
+                    for (var i = 0, f; f = files[i]; i++) {
+                      let fileType = files[i].type;
+                      if (fileType === PDF_TYPE) {
+                        handlePDFFile(files[i]);
+                      } else {
+                        console.error(`cannot handle file type: ${fileType}`)
+                      }
+                    }
+                  }
+                  
+                  
+                  function handlePDFFile(file) {
+                    var reader = new FileReader();
+                  
+                    reader.onload = (function(reader) {
+                      return function() {
+                        var contents = reader.result;
+                        var loadingTask = pdfjsLib.getDocument(contents);
+                  
+                        loadingTask.promise.then(function(pdf) {
+                          pdf.getPage(1).then(function(page) {
+                            var scale = 0.5;
+                            var viewport = page.getViewport({
+                              scale: scale,
+                            });
+                  
+                            var canvas = document.getElementById('the-canvas');
+                            var context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+                  
+                            var renderContext = {
+                              canvasContext: context,
+                              viewport: viewport
+                            };
+                            page.render(renderContext);
+                          });
+                        });
+                      }
+                    })(reader);
+                    reader.readAsDataURL(file);
+                  }
+                      </script>
+          </div>
+  </body>
+
+    <!-- <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #e3f2fd;">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="" target="_blank" style="">Blockstamp</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
           <small><a class="nav-link" href="#"><span id="account"></span></a></small>
         </li>
       </ul>
-    </nav>
-    <div class="container-fluid">
-      <div class="row">
-        <main role="main" class="col-lg-12 d-flex justify-content-center">
-          <div id="loader" class="text-center">
-            <p class="text-center">Loading...</p>
-          </div>
+    </nav> -->
 
-          <div id="content" style="width: inherit;">
-
-            <!-- <img src="/images/b515b828d500e6b505d335bc070571d7" alt=""> -->
-
-            <!-- 
-              
-              
-              DONT CUT YET
-            
-            
-            -->
-            <!-- <form action="/documentUpload" method="POST" enctype="multipart/form-data" id="singleForm">
-              <h3>Upload to the DB</h3>
-              <input type="file" name="image" />
-              <p style="display: inline;">Sign?</p><input type="checkbox" name="signcheck">
-              <button type="submit" class="btn btn-outline-primary">Submit</button>
-          </form> -->
-
-          <h3>Welcome, <%= displayName %></h3>
-          <p id="senderEmail"><%= email %></p>
-          <form action="/logout" method="POST">
-            <button type="submit" class="btn btn-danger"><span class="fa fa-google"></span> SignOut</button>
-          </form>
-            <div style="color: black; background-color: #e3f2fd; padding: 20px; border-radius: 10px;">
-              <form onSubmit="App.createTask();" method="POST" action="/documentUpload" enctype="multipart/form-data" >
-                <h3>Upload Documents</h3>
-                <div>
-                  <label for="myfile">Select a file:</label>
-                  <input type="file" id="myfile" name="image" required onchange="previewFile()">
-                  <br><br>
-                  <canvas id="the-canvas"></canvas>
-                  <!-- <img src="" height="200" alt="Image preview..."> -->
-                  <input type="hidden" value="">
-                  <p id="hashCode" name="hashCode" value="hashCode"></p>
-                  <p id="senderEmail2" style="display: none;"><%= email %></p>
-                </div>
-                
-                <!-- <br> -->
-                <label for="newTask">Enter Recipient</label>
-                <input id="newTask" type="text" class="form-control" placeholder="Email" required name="recipient">
-                <!-- hidden is log equivalent -->
-                <input type="hidden" name="hashc0d3" id="hashc0d3" value="hashc0d3">
-                <input type="hidden" name="senderE" id="senderE" value="senderE">
-                <br>
-                <!-- <input id="newTaskAddress" type="text" class="form-control" placeholder="Email Address" required> -->
-                <button type="submit" class="btn btn-primary">Upload to Blockchain</button>
-              </form>
-            </div>
-            <h3>Inbox</h3>
-            <ul id="taskList" class="list-unstyled">
-              
-              <form class="taskTemplate" method="POST" action="/details">
-              <div class="taskTemplate" class="checkbox" style="display: none">
-                <div style="border: 2px solid lightgrey; border-radius: 15px;">
-                  <input type="checkbox" class="xyz"/>
-                  <a class="content" type="submit" href="details.ejs" onclick="myFunction()" id="clickedContent"></a>
-                  <p class="content2"></p>
-                  <p class="hashc0d3"></p>
-                </div>
-                  
-                <!-- <button type="submit">button</button> -->
-                
-              </div>
-              
-              <input type="hidden" name="hid2" value="hid3" id="hid">
-
-              
-              <input type="hidden" name="jacob" value="jacob">
-
-            </form>
-
-            </ul>
-            <ul id="completedTaskList" class="list-unstyled">
-            </ul>
-          </div>
-        </main>
-      </div>
-    </div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
-    <!-- <script src ="../node_modules/web3/dist/web3.js"></script> -->
-    <!-- <script src="../node_modules/truffle-contract/dist/truffle-contract.js"></script>  -->
-    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src ="web3.js"></script>
-    <script src="truffle-contract.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-    <!-- for pdf render -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
-    <!-- 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/js/bootstrap.min.js"></script> -->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4/web3.min.js"></script> -->
-    <!-- <script src="https://www.jsdelivr.com/package/npm/truffle-contract"></script> -->
-    <script src="./app.js"></script>
-    <!-- <script>
-      document.getElementById("hid").value = document.getElementsByClassName("content").innerHTML;
-
-  </script> -->
-
-
-  <script>
     
-    $("#myfile").change(
-      function(){
-        var reader = new FileReader();
-
-        reader.addEventListener(
-          'load',
-          function(){
-            var wordArray = CryptoJS.lib.WordArray.create(this.result);
-            $("#hashCode").text(CryptoJS.MD5(wordArray));
-            var inputHidden = document.getElementById("hashc0d3");
-            var hashValue = document.getElementById("hashCode").innerHTML;
-            inputHidden.setAttribute('value', hashValue);
-
-            var senderEmailAddress = document.getElementById("senderE");
-            var setEmail = document.getElementById("senderEmail").innerHTML;
-            senderEmailAddress.setAttribute('value', setEmail);
-
-
-          }
-        );
-        reader.readAsArrayBuffer(this.files[0]);
-      }
-    )
-
-  const PDF_TYPE = "application/pdf";
-const TXT_TYPE = "text/plain";
-
-document.getElementById('myfile').addEventListener('change', handleFileSelect, false);
-
-
-function handleFileSelect(evt) {
-  var files = evt.target.files; // FileList object
-  for (var i = 0, f; f = files[i]; i++) {
-    let fileType = files[i].type;
-    if (fileType === PDF_TYPE) {
-      handlePDFFile(files[i]);
-    } else {
-      console.error(`cannot handle file type: ${fileType}`)
-    }
-  }
-}
-
-
-function handlePDFFile(file) {
-  var reader = new FileReader();
-
-  reader.onload = (function(reader) {
-    return function() {
-      var contents = reader.result;
-      var loadingTask = pdfjsLib.getDocument(contents);
-
-      loadingTask.promise.then(function(pdf) {
-        pdf.getPage(1).then(function(page) {
-          var scale = 0.5;
-          var viewport = page.getViewport({
-            scale: scale,
-          });
-
-          var canvas = document.getElementById('the-canvas');
-          var context = canvas.getContext('2d');
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-
-          var renderContext = {
-            canvasContext: context,
-            viewport: viewport
-          };
-          page.render(renderContext);
-        });
-      });
-    }
-  })(reader);
-  reader.readAsDataURL(file);
-}
-    </script>
-  </body>
 </html>

@@ -1,38 +1,54 @@
-.Index {
-    text-align: center;
-  }
-  
-  .Index-logo {
-    height: 40vmin;
-    pointer-events: none;
-  }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    .Index-logo {
-      animation: Index-logo-spin infinite 20s linear;
-    }
-  }
-  
-  .Index-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .Index-link {
-    color: #61dafb;
-  }
-  
-  @keyframes Index-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+body{
+  font-family: 'Syne', sans-serif; 
+}
+main {
+  margin-top: 40px;
+}
+
+#content {
+  display: none;
+}
+
+form {
+  width: 350px;
+  margin-bottom: 10px;
+}
+
+ul {
+  margin-bottom: 0px;
+}
+
+#completedTaskList .content {
+  color: grey;
+  text-decoration: line-through;
+}
+#the-canvas {
+outline: black 3px solid;
+}
+.container {
+--sidebar-width: 20px;
+}
+
+.main {
+display: flex;
+}
+
+.sidebar {
+position: fixed;
+overflow-y: auto;
+height: 100%;
+width: var(--sidebar-width);
+z-index: 1;
+background-color: antiquewhite;
+padding-left: 15px;
+padding-right: 25px;
+
+}
+
+.content {
+margin-left: var(--sidebar-width);
+flex-grow: 1;
+}
+.link{
+background-color: pink;
+}

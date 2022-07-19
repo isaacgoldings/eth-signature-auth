@@ -20,9 +20,10 @@
       </nav>
       <br><br>
       <h1 id="titletest">Uploads</h1>
-      <form action="./details2" method="POST">
+      
         <ul>
           <% uploads.forEach(function(upload){ %>
+            <form action="./details2" method="POST">
                   <li><%= upload.sender %></li>
                   <ul>
                     <input type="hidden" id="fname" name="fname" value="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>"><br><br>
@@ -37,11 +38,12 @@
 
                       <!-- <img src="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>" alt=""> -->
                   </ul>
-                             
+                  <button type="submit" class="btn btn-primary">Details</button>
+                </form>
           <% }); %>
       </ul>
-      <button type="submit" class="btn btn-primary">Details</button>
-    </form>
+      
+    
     
     
 </body>
