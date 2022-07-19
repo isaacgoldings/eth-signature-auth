@@ -11,7 +11,7 @@
 </head>
 <body>
     <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #e3f2fd;">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="" target="_blank" style="">Blockstamp</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index" target="_blank" style="">Blockstamp</a>
         <ul class="navbar-nav px-3">
           <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
             <small><a class="nav-link" href="#"><span id="account"></span></a></small>
@@ -19,21 +19,30 @@
         </ul>
       </nav>
       <br><br>
-      <h1>Uploads</h1>
-    <ul>
-        <% uploads.forEach(function(upload){ %>
-                <li><%= upload.sender %></li>
-                <ul>
-                    <li><%= upload.recipient %></li>
-                    <li><%= upload.originalname %></li> 
-                    <li><%= upload.filename %></li>
-                    <!-- <embed src="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>" width="500" height="375" type="application/pdf"> -->
+      <h1 id="titletest">Uploads</h1>
+      <form action="./details2" method="POST">
+        <ul>
+          <% uploads.forEach(function(upload){ %>
+                  <li><%= upload.sender %></li>
+                  <ul>
+                    <input type="hidden" id="fname" name="fname" value="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>"><br><br>
+                      <li><%= upload.recipient %></li>
+                      <li><%= upload.originalname %></li> 
+                      <a href="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>"><%= upload.filename %></a><br>
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png" height="370" width="300" alt="Image Preview"><br>
+                      <embed src="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>" width="650" height="800" type="application/pdf" id="previewFile">
+  
+                        <iframe src="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>" width="100%" height="500px"></iframe>
 
-                    <img src="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>" alt="">
-                </ul>
-                           
-        <% }); %>
-    </ul>
+
+                      <!-- <img src="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>" alt=""> -->
+                  </ul>
+                             
+          <% }); %>
+      </ul>
+      <button type="submit" class="btn btn-primary">Details</button>
+    </form>
+    
     
 </body>
 </html>

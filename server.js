@@ -324,6 +324,12 @@ app.get('/uploads', (req, res)=> {
 
 })
 
+app.post('/details2', (req, res) => {
+  console.log(req.body);
+  console.log("^BODY^");
+  res.render('details2', {'body':req.body})
+})
+
  
 app.get('/auth/google', 
   passport.authenticate('google', { scope : ['profile', 'email'] }));
