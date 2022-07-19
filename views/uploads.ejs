@@ -4,15 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Uploads</title>
+    <!-- Bootstrap -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
 <body>
+    <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #e3f2fd;">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="" target="_blank" style="">Blockstamp</a>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
+            <small><a class="nav-link" href="#"><span id="account"></span></a></small>
+          </li>
+        </ul>
+      </nav>
+      <br><br>
+      <h1>Uploads</h1>
     <ul>
         <% uploads.forEach(function(upload){ %>
                 <li><%= upload.sender %></li>
                 <ul>
                     <li><%= upload.recipient %></li>
                     <li><%= upload.originalname %></li> 
+                    <li><%= upload.filename %></li>
+                    <!-- <embed src="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>" width="500" height="375" type="application/pdf"> -->
+
+                    <img src="<%= `https://blockstamp.s3.amazonaws.com/${upload.filename}` %>" alt="">
                 </ul>
                            
         <% }); %>
