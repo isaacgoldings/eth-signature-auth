@@ -108,9 +108,14 @@
       <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #e3f2fd;">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="" target="_blank" style="">Blockstamp</a>
         <ul class="navbar-nav px-3">
-          <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
-            <small><a class="nav-link" href="#"><span id="account"></span></a></small>
-          </li>
+          <div style="display: flex; align-items: center;">
+            <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
+              <small><a class="nav-link" href="#"><span id="account"></span></a></small>
+            </li>
+              <li>
+                <img src="<%= picture %>" alt="" style="border-radius: 15px; margin-left: 10px;" height="25px" width="25px">
+              </li> 
+          </div>       
         </ul>
       </nav>
       <!-- BOTTOM -->

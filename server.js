@@ -111,10 +111,12 @@ app.get('/error', (req, res) => res.send("error logging in"));
 
 //homePage
 app.get('/index', (req, res) => {
-  // console.log(userProfile);
+  console.log(userProfile);
    app.locals.displayName = userProfile.displayName;
    app.locals.email = userProfile._json.email;
    app.locals.name = userProfile._json.name;
+   app.locals.picture = userProfile._json.picture;
+
     // Creating new user on log in
   const newUser = new User({
     user_name: userProfile.displayName,
