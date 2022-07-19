@@ -20,7 +20,9 @@ function uploadFile(file) {
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,
-    Key: file.filename
+    Key: file.filename,
+    ContentDisposition:"inline",
+    ContentType:"application/pdf"
   }
 
   return s3.upload(uploadParams).promise()
