@@ -196,6 +196,7 @@ var uploadedFile = new Schema({
   recipient: String,
   sender: String,
   hashCode: String,
+  date: Number,
   // email: String,
   // name: String,
 });
@@ -228,6 +229,7 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
       recipient: recipientIs,
       sender: app.locals.email,
       hashCode: req.body.hashc0d3,
+      date: Date.now(),
       // email: req.body.name,
       // name: req.body.name,
     });

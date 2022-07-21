@@ -71,7 +71,8 @@
         text-decoration: line-through;
       }
       #the-canvas {
-      outline: black 3px solid;
+      outline: white 2px dashed;
+      border-radius: 15px;
       }
       .container {
   --sidebar-width: 20px;
@@ -87,9 +88,10 @@
   height: 100%;
   width: var(--sidebar-width);
   z-index: 1;
-  background-color: antiquewhite;
+  background-color: #e3f2fd;
   padding-left: 15px;
-  padding-right: 25px;
+  padding-right: 50px;
+  padding-top: 10px;
   margin-top: 40px;
 }
 
@@ -100,6 +102,7 @@
 .link{
   background-color: pink;
 }
+
     </style>
   </head>
   <body>
@@ -136,10 +139,15 @@
                   <a href="#">Link 3</a>
                   <br/>
                   <br/>
-                  <a href="#">Link 4</a>
+                  <!-- <div class="overlay"> -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                    <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                  </svg>
+                <!-- </div> -->
+                  <!-- <a href="#">Link 4</a> -->
                   <br/>
                   <br/>
-                  <a href="#">Sign out</a>
+                  <a href="/" onclick="">Sign out</a>
           </div>
           <!-- <div class="content">
             <ul>
@@ -160,7 +168,7 @@
               </div> -->
               <!--Contains the main content
                       of the webpage-->
-                        <div class="" style="margin-left: 100px;">
+                        <div class="" style="margin-left: 125px;">
                           <main role="main" class="col-lg-12 d-flex justify-content-center">
                             <div id="loader" class="text-center">
                               <p class="text-center">Loading...</p>
@@ -168,8 +176,10 @@
                   
                             <div id="content" style="width: inherit; margin-top: 40px;">
                   
-                            <h3>Welcome, <%= displayName %></h3>
-                            <p id="senderEmail"><%= email %></p>
+                            <h1>Dashboard</h1>
+                            
+                              <!-- <h3>Welcome, <%= displayName %></h3>
+                            <p id="senderEmail"><%= email %></p> -->
                             <form action="/logout" method="POST">
                               <button type="submit" class="btn btn-danger"><span class="fa fa-google"></span> SignOut</button>
                             </form>

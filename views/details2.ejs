@@ -7,6 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <p><%= body.fname %></p>
+    <p><%= body.filename %></p>
+    <p><%= body.originalname %></p>
+    <p><%= body.recipient %></p>
+
+    <embed src="<%= body.filename %>" width="650" height="800" type="application/pdf">
+
+        <!-- <form action="/documentUpload" method="POST" style="background-color: green;">
+            <h1>this is a form</h1>
+            <label for="agree"></label>
+            <input type="checkbox" name="agree" id="agree" required>
+            <h3>end of form</h3>
+        </form> -->
+
 </body>
 </html>
