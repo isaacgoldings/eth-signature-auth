@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL, file to input and preview</title>
+  
+</head>
+<body>
+  <h1>Load URL to input</h1>
+  <input width="100%" id='url' type="text" placeholder="paste url image here" value="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/SVG_Logo.svg/640px-SVG_Logo.svg.png">
+  <button id="loadUrl">Load URL to input type file</button>
+  <input id='file_input' type="file">
+  <span>status input file type: <span id="status"></span></span>
+ 
+
+  <h1>modify</h1>
+  <button onclick="modifyPdf()">Modify PDF</button>
+
+  <h1>Load input to preview</h1>
+  <button id="loadImage" >Load input above to preview</button>
+  <img src="" id='img-preview' alt="img-preview">
+
+  <h1>Load input file browser to preview</h1>
+  <input type="file" name="" id="file_browser">
+  <img src="" id='img-preview2' alt="preview2">
+
+  <script>
+      var btnLoadUrl = document.querySelector('#loadUrl');
+btnLoadUrl.addEventListener("click", ()=>{
+  var url = document.querySelector('#url').value;
+  loadURLToInputField(url)
+});
+
+var btnLoadImage = document.querySelector('#loadImage');
+btnLoadImage.addEventListener("click", ()=>{
+  var img_preview = document.querySelector('#img-preview');
+  console.log(img_preview)
+  loadInputFieldToPreview(img_preview)
+});
+
+var file_browser = document.querySelector('#file_browser');
+var img_preview2 = document.querySelector('#img-preview2');
+file_browser.addEventListener('change',()=>{
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    img_preview2.src = e.target.result
+  }
+  reader.readAsDataURL(document.querySelector('#file_browser').files[0]);
+})
+
+function loadURLToInputField(url){
+  getImgURL(url, (imgBlob)=>{
+    // Load img blob to input
+    let fileName = 'hasFilename.jpg' // should .replace(/[/\\?%*:|"<>]/g, '-') for remove special char like / \
+    let file = new File([imgBlob], fileName,{type:"image/jpeg", lastModified:new Date().getTime()}, 'utf-8');
+    let container = new DataTransfer(); 
+    container.items.add(file);
+    document.querySelector('#file_input').files = container.files;
+    // document.querySelector('#status').files = container.files;
+    
+  })
+}
+
+function loadInputFieldToPreview(imgElement){
+  // Load preview to img tag
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    imgElement.src = e.target.result
+  }
+  reader.readAsDataURL(document.querySelector('#file_input').files[0]); // convert to base64 string
+}
+
+// xml json res
+function httpGetAsync(url, callback){
+  var req = new XMLHttpRequest();
+  req.responseType = 'json';
+  req.open('GET', url);
+  req.onload  = function() {
+    var jsonResponse = req.response;
+    callback(jsonResponse)
+    // do something with jsonResponse
+  };
+  req.send(null);
+}
+
+// xml blob res
+function getImgURL(url, callback){
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+      callback(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
+
+//check input status
+setInterval(() => {
+  var input = document.querySelector('#file_input');
+  var status = document.querySelector('#status');
+  if(input.value){
+    status.innerHTML = 'has input'
+    
+  } else {
+    status.innerHTML = 'empty input'
+  }
+}, 500);
+
+const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
+
+    async function modifyPdf() {
+
+      console.log("called");
+      // Fetch an existing PDF document
+      const url = 'https://pdf-lib.js.org/assets/form_to_flatten.pdf'
+  		const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+
+      // Load a PDFDocument from the existing PDF bytes
+      const pdfDoc = await PDFDocument.load(existingPdfBytes)
+      
+      // Embed the Helvetica font
+      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+      // Get the first page of the document
+      const pages = pdfDoc.getPages()
+      const firstPage = pages[0]
+
+      // Get the width and height of the first page
+      const { width, height } = firstPage.getSize()
+
+      // Draw a string of text diagonally across the first page
+      firstPage.drawText('This document digitally signed by' + ' User Name', {
+        x: 5,
+        y: height-25,
+        size: 10,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+        // rotate: degrees(-45),
+      })
+      var time = Date.now().toString();
+      firstPage.drawText(time, {
+        x: 5,
+        y: height-40,
+        size: 10,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+        // rotate: degrees(-45),
+      })
+      firstPage.drawText('somehash', {
+        x: 5,
+        y: height-55,
+        size: 10,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+        // rotate: degrees(-45),
+      })
+
+      // Serialize the PDFDocument to bytes (a Uint8Array)
+      const pdfBytes = await pdfDoc.save()
+
+      console.log("pdfBytes");
+      console.log(pdfBytes);
+
+      var arrayBuffer = pdfBytes.buffer;
+      const newFileAfterConvert = convertToFile(arrayBuffer, "NEW_Filename");
+      console.log(newFileAfterConvert);
+
+			// Trigger the browser to download the PDF document
+      download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
+    }
+
+
+    function convertToFile(buffer, filename){
+    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+    return new File([blob], filename, { type: 'application/pdf' });
+    };
+  </script>
+</body>
+</html>

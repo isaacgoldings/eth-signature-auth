@@ -46,8 +46,9 @@
         crossorigin="anonymous">
     </script>
     <style>
-      body{
+body{
         font-family: 'Syne', sans-serif; 
+        background-color: rgb(248, 248, 248);
       }
       main {
         /* margin-top: 40px; */
@@ -71,7 +72,8 @@
         text-decoration: line-through;
       }
       #the-canvas {
-      outline: black 3px solid;
+      outline: white 2px dashed;
+      border-radius: 15px;
       }
       .container {
   --sidebar-width: 20px;
@@ -87,9 +89,10 @@
   height: 100%;
   width: var(--sidebar-width);
   z-index: 1;
-  background-color: antiquewhite;
+  background-color: white;
   padding-left: 15px;
-  padding-right: 25px;
+  padding-right: 50px;
+  padding-top: 15px;
   margin-top: 40px;
 }
 
@@ -111,8 +114,10 @@
   <body>
       <!-- top navbar -->
       <!-- TOP -->
-      <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #e3f2fd;">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="" target="_blank" style="">Blockstamp</a>
+      <!-- #e3f2fd light -->
+      <!-- ##007bff dark -->
+      <nav class="navbar fixed-top flex-md-nowrap p-0" style="background-color: white; border-bottom: 1px solid lightgrey;">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/index" target="_blank" style="">Blockstamp</a>
         <ul class="navbar-nav px-3">
           <div style="display: flex; align-items: center;">
             <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -166,12 +171,12 @@
               </div> -->
               <!--Contains the main content
                       of the webpage-->
-                        <div class="" style="margin-left: 100px;">
+                        <div class="" style="margin-left: 125px;">
                           <main role="main" class="col-lg-12 d-flex justify-content-center">
-                            <div id="content" style="width: inherit; margin-top: 40px;">
-                              <h1>uploads</h1>
+                            <div id="content" style="width: inherit; margin-top: 50px;">
+                              <h3>Uploads</h3>
 
-                              <table class="table table-hover table-bordered">
+                              <table class="table table-hover table-bordered" style="background-color: white;">
                                 <thead>
                                   <tr>
                                     <th scope="col">#</th>

@@ -21,14 +21,25 @@
     <p>Click the button to modify an existing PDF document with <code>pdf-lib</code></p>
     <button onclick="modifyPdf()">Modify PDF</button>
     <p class="small">(Your browser will download the resulting file)</p>
+    <input type="file" hidden id="myfile" name="image">
+    <button onclick="sayHello()">hi</button>
+
+
   </body>
 
   <script>
+
+function sayHello(){
+  console.log("hi");
+}
+
     const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
 
     async function modifyPdf() {
+
+      console.log("called");
       // Fetch an existing PDF document
-      const url = 'https://blockstamp.s3.amazonaws.com/e06cf7f5b1582a8f745650554e59d7d8'
+      const url = 'https://blockstamp.s3.amazonaws.com/1608630435e6d96046cc7a02781a75fe'
   		const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
 
       // Load a PDFDocument from the existing PDF bytes
@@ -74,9 +85,23 @@
       // Serialize the PDFDocument to bytes (a Uint8Array)
       const pdfBytes = await pdfDoc.save()
 
+      console.log("pdfBytes");
+      console.log(pdfBytes);
+
+      var arrayBuffer = pdfBytes.buffer;
+      const newFileAfterConvert = convertToFile(arrayBuffer, "NEW_Filename");
+      console.log(newFileAfterConvert);
+
 			// Trigger the browser to download the PDF document
       download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
     }
+
+
+    function convertToFile(buffer, filename){
+    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+    return new File([blob], filename, { type: 'application/pdf' });
+    };
+
   </script>
 </html>
 

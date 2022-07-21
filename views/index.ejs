@@ -48,6 +48,8 @@
     <style>
       body{
         font-family: 'Syne', sans-serif; 
+        background-color: rgb(248, 248, 248);
+
       }
       main {
         /* margin-top: 40px; */
@@ -88,10 +90,10 @@
   height: 100%;
   width: var(--sidebar-width);
   z-index: 1;
-  background-color: #e3f2fd;
+  background-color: white;
   padding-left: 15px;
   padding-right: 50px;
-  padding-top: 10px;
+  padding-top: 15px;
   margin-top: 40px;
 }
 
@@ -108,7 +110,7 @@
   <body>
       <!-- top navbar -->
       <!-- TOP -->
-      <nav class="navbar fixed-top flex-md-nowrap p-0 shadow" style="background-color: #e3f2fd;">
+      <nav class="navbar fixed-top flex-md-nowrap p-0" style="background-color: white; border-bottom: 1px solid lightgrey;">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="" target="_blank" style="">Blockstamp</a>
         <ul class="navbar-nav px-3">
           <div style="display: flex; align-items: center;">
@@ -147,7 +149,11 @@
                   <!-- <a href="#">Link 4</a> -->
                   <br/>
                   <br/>
-                  <a href="/" onclick="">Sign out</a>
+                  <a href="/logout" onclick="">Sign out</a>
+                  <br><br>
+                  <form action="/logout" method="POST" style="width: 0;">
+                    <button type="submit" class="btn btn-danger btn-sm"><span class="fa fa-google"></span> SignOut</button>
+                  </form>
           </div>
           <!-- <div class="content">
             <ul>
@@ -174,9 +180,9 @@
                               <p class="text-center">Loading...</p>
                             </div>
                   
-                            <div id="content" style="width: inherit; margin-top: 40px;">
+                            <div id="content" style="width: inherit; margin-top: 50px;">
                   
-                            <h1>Dashboard</h1>
+                            <h3>Dashboard</h3>
                             
                               <!-- <h3>Welcome, <%= displayName %></h3>
                             <p id="senderEmail"><%= email %></p> -->
@@ -211,25 +217,18 @@
                               <h3>Inbox</h3>
                               <ul id="taskList" class="list-unstyled">
                                 
-                                <form class="taskTemplate" method="POST" action="/details">
                                 <div class="taskTemplate" class="checkbox" style="display: none">
                                   <div style="border: 2px solid lightgrey; border-radius: 15px;">
                                     <input type="checkbox" class="xyz"/>
                                     <a class="content" type="submit" href="details.ejs" onclick="myFunction()" id="clickedContent"></a>
-                                    <p class="content2"></p>
-                                    <p class="hashc0d3"></p>
+                                    <p class="content2" style="display: inline-flex;"></p>
+                                    <p class="hashc0d3" style="display: inline-flex;"></p>
                                   </div>
                                     
                                   <!-- <button type="submit">button</button> -->
                                   
                                 </div>
                                 
-                                <input type="hidden" name="hid2" value="hid3" id="hid">
-                  
-                                
-                                <input type="hidden" name="jacob" value="jacob">
-                  
-                              </form>
                   
                               </ul>
                               <ul id="completedTaskList" class="list-unstyled">

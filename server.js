@@ -131,19 +131,6 @@ app.get('/index', (req, res) => {
 });
 
 
-// var uploadedFile = new Schema({
-//   filename: String,
-//   recipient: String,
-// });
-
-// var singleUploadedFile = mongoose.model('singleUploadedFile', uploadedFile);
-
-// const fileToUpload = new singleUploadedFile({
-//   filename: req.file.filename,
-//   recipient: req.file.recipient,
-// });
-// fileToUpload.save()
-
 //******database stuff
 const mongoClient  = require("mongodb");
 
@@ -264,6 +251,10 @@ app.post('/documentUpload', upload_s3.single('image'), async (req,res)=>{
     res.redirect("/index")
     
 });
+
+app.get('/imageTesting', (req, res) => {
+  res.render('imagetesting');
+})
 
 //s3 post route
 app.post('/images', upload.single('image'), async (req, res) => {
